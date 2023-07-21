@@ -2,6 +2,7 @@ class Projectile extends GameObject {
     constructor(x, y, width, height) {
         super(x, y, width, height);
         this.speed = 15;
+        this.isAlive = true;
     }
 
     draw(ctx) {
@@ -10,5 +11,11 @@ class Projectile extends GameObject {
 
     move() {
         this.y = this.y - this.speed;
+    }
+
+    outOfGame() {
+        if (this.y + this.height <= 0) {
+            this.isAlive = false;
+        }
     }
 }

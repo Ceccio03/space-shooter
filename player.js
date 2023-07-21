@@ -11,6 +11,7 @@ class Player extends GameObject {
         super.draw(ctx);
 
         this.cooldown--;
+        this.projectiles = this.projectiles.filter(p => p.isAlive);
 
         for (let i = 0; i < this.projectiles.length; i++) {
             const proj = this.projectiles[i];
@@ -20,7 +21,7 @@ class Player extends GameObject {
         }
     }
 
-    control() {
+    control(canvasWidth, canvasHeight) {
         document.onkeydown = (keyevent => {
             this.controller[keyevent.key] = true;
         });
@@ -28,21 +29,35 @@ class Player extends GameObject {
         document.onkeyup = (keyevent => {
             this.controller[keyevent.key] = false;
         });
-
-        console.log(this.controller);
         
         for (const key in this.controller) {
             if (key.includes("Left") && this.controller[key]) {
                 this.x = this.x - this.speed;
+
+                if (this.x <= 0) {
+                    this.x = 0;
+                }
             }
             if (key.includes("Right") && this.controller[key]) {
                 this.x = this.x + this.speed;
+
+                if (this.x >= canvasWidth - this.width) {
+                    this.x = canvasWidth - this.width;
+                }
             }
             if (key.includes("Up") && this.controller[key]) {
                 this.y = this.y - this.speed;
+
+                if (this.y <= 0) {
+                    this.y = 0;
+                }
             }
             if (key.includes("Down") && this.controller[key]) {
                 this.y = this.y + this.speed;
+
+                if (this.y >= canvasHeight - this.height) {
+                    this.y = canvasHeight - this.height;
+                }
             }
             if (key === " " && this.controller[key]) {
                 this.baseAttack();

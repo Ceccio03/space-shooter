@@ -22,7 +22,7 @@ function animation() {
 
     if (player) {
         player.draw(ctx);
-        player.control();
+        player.control(canvasWidth, canvasHeight);
     }
 
     enemyCooldown--;
@@ -31,10 +31,11 @@ function animation() {
         enemyCooldown = 120;
     }
 
+    allEnemies = allEnemies.filter(e => e.isAlive);
     for (let i = 0; i < allEnemies.length; i++) {
         const enemy = allEnemies[i];
         enemy.draw(ctx);
-        enemy.move();
+        enemy.move(canvasHeight);
     }
 }
 
