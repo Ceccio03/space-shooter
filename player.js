@@ -4,10 +4,13 @@ class Player extends GameObject {
         this.speed = 10;
         this.controller = {};
         this.projectiles = [];
+        this.cooldown = 15;
     }
 
     draw(ctx) {
         super.draw(ctx);
+
+        this.cooldown--;
 
         for (let i = 0; i < this.projectiles.length; i++) {
             const proj = this.projectiles[i];
@@ -48,8 +51,11 @@ class Player extends GameObject {
     }
 
     baseAttack() {
-        let proj = new Projectile(this.x + (this.width/2) - 2.5, this.y, 5, 20);
+        if (this.cooldown <= 0) {
+            let proj = new Projectile(this.x + (this.width/2) - 2.5, this.y, 5, 20);
 
-        this.projectiles.push(proj);
+            this.projectiles.push(proj);
+            this.cooldown = 15;
+        }
     }
 }

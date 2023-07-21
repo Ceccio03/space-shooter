@@ -8,6 +8,8 @@ canvas.height = canvasHeight;
 
 let animate;
 const player = new Player((canvasWidth/2), (canvasHeight/2), 50, 50);
+let allEnemies = [];
+let enemyCooldown = 120;
 
 function animation() {
     ctx.clearRect(0, 0, canvasWidth, canvasHeight)
@@ -22,5 +24,24 @@ function animation() {
         player.draw(ctx);
         player.control();
     }
+
+    enemyCooldown--;
+    if (enemyCooldown <= 0) {
+        enemySpawn();
+        enemyCooldown = 120;
+    }
+
+    for (let i = 0; i < allEnemies.length; i++) {
+        const enemy = allEnemies[i];
+        enemy.draw(ctx);
+        enemy.move();
+    }
+}
+
+function enemySpawn() {
+    const randomX = Math.random() * (canvasWidth - 50);
+    let enemy = new BaseEnemy(randomX, -50, 50, 50);
+
+    allEnemies.push(enemy);
 }
 animation();
