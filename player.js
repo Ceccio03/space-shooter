@@ -8,6 +8,13 @@ class Player extends GameObject {
 
     draw(ctx) {
         super.draw(ctx);
+
+        for (let i = 0; i < this.projectiles.length; i++) {
+            const proj = this.projectiles[i];
+            
+            proj.draw(ctx);
+            proj.move();
+        }
     }
 
     control() {
@@ -34,27 +41,15 @@ class Player extends GameObject {
             if (key.includes("Down") && this.controller[key]) {
                 this.y = this.y + this.speed;
             }
+            if (key === " " && this.controller[key]) {
+                this.baseAttack();
+            }
         }
+    }
 
-        // switch (keyevent.key) {
-        //     case "ArrowLeft":
-        //         this.x = this.x - this.speed;
-        //         break;
+    baseAttack() {
+        let proj = new Projectile(this.x, this.y, 5, 20);
 
-        //     case "ArrowRight":
-        //         this.x = this.x + this.speed;
-        //         break;
-
-        //     case "ArrowUp":
-        //         this.y = this.y - this.speed;
-        //         break;
-
-        //     case "ArrowDown":
-        //         this.y = this.y + this.speed;
-        //         break;
-            
-        //     default:
-        //         break;
-        // }
+        this.projectiles.push(proj);
     }
 }
