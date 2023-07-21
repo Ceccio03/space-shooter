@@ -48,7 +48,7 @@ class Player extends GameObject {
     }
 
     baseAttack() {
-        let proj = new Projectile(this.x, this.y, 5, 20);
+        let proj = new Projectile(this.x + (this.width/2) - 2.5, this.y, 5, 20);
 
         this.projectiles.push(proj);
     }
