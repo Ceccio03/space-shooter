@@ -3,10 +3,12 @@ class Projectile extends GameObject {
         super(x, y, width, height);
         this.speed = 15;
         this.isAlive = true;
+        this.healthPoints = 1;
     }
 
     draw(ctx) {
         super.draw(ctx);
+        this.death();
     }
 
     move() {
@@ -15,6 +17,12 @@ class Projectile extends GameObject {
 
     outOfGame() {
         if (this.y + this.height <= 0) {
+            this.isAlive = false;
+        }
+    }
+
+    death() {
+        if (this.healthPoints <= 0) {
             this.isAlive = false;
         }
     }

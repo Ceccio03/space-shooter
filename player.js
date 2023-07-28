@@ -5,6 +5,7 @@ class Player extends GameObject {
         this.controller = {};
         this.projectiles = [];
         this.cooldown = 15;
+        this.healthPoints = 5;
     }
 
     draw(ctx) {
@@ -53,6 +54,12 @@ class Player extends GameObject {
 
             this.projectiles.push(proj);
             this.cooldown = 15;
+        }
+    }
+
+    death() {
+        if (this.healthPoints <= 0) {
+            
         }
     }
 }
