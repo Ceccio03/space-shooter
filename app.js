@@ -87,7 +87,7 @@ function minibossSpawn() {
         let miniboss = new Miniboss(xPos, 120, 128, 84);
 
         miniboss.score = 1000;
-        miniboss.speed = xPos === 0 ? 2 : -2;
+        miniboss.speed = xPos < 0.5 ? 2 : -2;
         allEnemies.push(miniboss);
         minibossCoolDown = 1200;
     }
