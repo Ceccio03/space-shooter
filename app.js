@@ -14,8 +14,10 @@ let playerProjectiles = player.projectiles;
 
 const gameOver = document.getElementById('game-over');
 const gameOverBtn = document.getElementById('game-over-btn');
-const hpText = document.getElementById('hp-text');
+// const hpText = document.getElementById('hp-text');
+const hpBar = document.getElementById('hp-bar');
 const scoreText = document.getElementById('score-text');
+let hpWidth = 100 / player.healthPoints;
 
 
 
@@ -24,6 +26,7 @@ gameOverBtn.addEventListener('click', () => {
     player.projectiles = [];
     allEnemies = [];
     gameOver.style.display = "none";
+    player.score = 0;
 });
 
 function animation() {
@@ -58,8 +61,10 @@ function animation() {
         }
         enemyCollision();
 
-        hpText.innerText = "Vita: " + player.healthPoints;
+        // hpText.innerText = "Vita: " + player.healthPoints;
         scoreText.innerText = "Score: " + player.score;
+
+        hpBar.style.width = hpWidth * player.healthPoints + '%';
     } else {
         gameOver.style.display = "flex";
     }
