@@ -53,6 +53,7 @@ function animation() {
             enemySpawn();
             enemyCooldown = 120;
         }
+        minibossSpawn();
     
         allEnemies = allEnemies.filter(e => e.isAlive);
 
