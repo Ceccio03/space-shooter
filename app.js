@@ -12,6 +12,20 @@ let allEnemies = [];
 let enemyCooldown = 120;
 let playerProjectiles = player.projectiles;
 
+const gameOver = document.getElementById('game-over');
+const gameOverBtn = document.getElementById('game-over-btn');
+const hpText = document.getElementById('hp-text');
+const scoreText = document.getElementById('score-text');
+
+
+
+gameOverBtn.addEventListener('click', () => {
+    player.healthPoints = 3;
+    player.projectiles = [];
+    allEnemies = [];
+    gameOver.style.display = "none";
+});
+
 function animation() {
     ctx.clearRect(0, 0, canvasWidth, canvasHeight)
     animate = requestAnimationFrame(animation);
@@ -36,13 +50,18 @@ function animation() {
         }
     
         allEnemies = allEnemies.filter(e => e.isAlive);
-        
+
         for (let i = 0; i < allEnemies.length; i++) {
             const enemy = allEnemies[i];
             enemy.draw(ctx);
             enemy.move(canvasHeight);
         }
         enemyCollision();
+
+        hpText.innerText = "Vita: " + player.healthPoints;
+        scoreText.innerText = "Score: " + player.score;
+    } else {
+        gameOver.style.display = "flex";
     }
 }
 
@@ -67,10 +86,13 @@ function enemyCollision() {
                 enemy.y < pA.y + pA.height &&
                 enemy.y + enemy.height > pA.y
                 ) {
-                console.log("collision");
-
                 enemy.healthPoints--;
                 pA.healthPoints--;
+                enemy.death();
+
+                if (!enemy.isAlive) {
+                    player.score += enemy.score;
+                }
             }
         }
     }

@@ -6,6 +6,7 @@ class Player extends GameObject {
         this.projectiles = [];
         this.cooldown = 15;
         this.healthPoints = 5;
+        this.score = 0;
     }
 
     draw(ctx) {
@@ -20,6 +21,7 @@ class Player extends GameObject {
             proj.draw(ctx);
             proj.move();
         }
+        console.log(this.healthPoints);
     }
 
     control(canvasWidth, canvasHeight) {
@@ -59,6 +61,12 @@ class Player extends GameObject {
 
     death() {
         if (this.healthPoints <= 0) {
+            
+        }
+    }
+
+    takeDamage() {
+        if (condition) {
             
         }
     }
