@@ -30,22 +30,20 @@ class Player extends GameObject {
             this.controller[keyevent.key] = false;
         });
         
-        for (const key in this.controller) {
-            if (key.includes("Left") && this.controller[key]) {
-                this.x = this.x > 0 ? this.x - this.speed : 0;
-            }
-            if (key.includes("Right") && this.controller[key]) {
-                this.x = (this.x + this.width) < canvasWidth ? this.x + this.speed : canvasWidth - this.width;
-            }
-            if (key.includes("Up") && this.controller[key]) {
-                this.y = this.y > 0 ? this.y - this.speed : 0;
-            }
-            if (key.includes("Down") && this.controller[key]) {
-                this.y = (this.y + this.height) < canvasHeight ? this.y + this.speed : canvasHeight - this.height;
-            }
-            if (key === " " && this.controller[key]) {
-                this.baseAttack();
-            }
+        if (key === "ArrowLeft" && this.controller[key]) {
+            this.x = this.x > 0 ? this.x - this.speed : 0;
+        }
+        if (key === "ArrowRight" && this.controller[key]) {
+            this.x = (this.x + this.width) < canvasWidth ? this.x + this.speed : canvasWidth - this.width;
+        }
+        if (key === "ArrowUp" && this.controller[key]) {
+            this.y = this.y > 0 ? this.y - this.speed : 0;
+        }
+        if (key === "ArrowDown" && this.controller[key]) {
+            this.y = (this.y + this.height) < canvasHeight ? this.y + this.speed : canvasHeight - this.height;
+        }
+        if (key === " " && this.controller[key]) {
+            this.baseAttack();
         }
     }
 
