@@ -11,7 +11,6 @@ const player = new Player((canvasWidth/2), (canvasHeight/2), 50, 50);
 let allEnemies = [];
 let enemyCooldown = 120;
 let minibossCoolDown = 1200;
-let playerProjectiles = player.projectiles;
 
 const gameOver = document.getElementById('game-over');
 const gameOverBtn = document.getElementById('game-over-btn');
@@ -20,6 +19,7 @@ const hpBar = document.getElementById('hp-bar');
 const scoreText = document.getElementById('score-text');
 let hpWidth = 100 / player.healthPoints;
 let state = "Play";
+let minibossProjectiles = [];
 
 gameOverBtn.addEventListener('click', () => {
     player.healthPoints = 3;
@@ -48,19 +48,20 @@ function animation() {
         }
     
         enemyCooldown--;
-
         if (enemyCooldown <= 0) {
             enemySpawn();
             enemyCooldown = 120;
         }
         minibossSpawn();
-    
-        allEnemies = allEnemies.filter(e => e.isAlive);
 
+        allEnemies = allEnemies.filter((e) => e.isAlive);
         for (let i = 0; i < allEnemies.length; i++) {
             const enemy = allEnemies[i];
             enemy.draw(ctx);
             enemy.move(canvasHeight);
+            if (enemy.projectiles) {
+                minibossProjectiles.push(enemy.projectiles);
+            }
         }
         enemyCollision();
 
@@ -95,6 +96,7 @@ function minibossSpawn() {
 
 function enemyCollision() {
     let playerAssets = [player, ...playerProjectiles];
+    let enemyAssets = [...allEnemies, ...minibossProjectiles];
 
     for (let i = 0; i < playerAssets.length; i++) {
         const pA = playerAssets[i];
