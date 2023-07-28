@@ -30,19 +30,19 @@ class Player extends GameObject {
             this.controller[keyevent.key] = false;
         });
         
-        if (key === "ArrowLeft" && this.controller[key]) {
+        if (this.controller["ArrowLeft"]) {
             this.x = this.x > 0 ? this.x - this.speed : 0;
         }
-        if (key === "ArrowRight" && this.controller[key]) {
+        if (this.controller["ArrowRight"]) {
             this.x = (this.x + this.width) < canvasWidth ? this.x + this.speed : canvasWidth - this.width;
         }
-        if (key === "ArrowUp" && this.controller[key]) {
+        if (this.controller["ArrowUp"]) {
             this.y = this.y > 0 ? this.y - this.speed : 0;
         }
-        if (key === "ArrowDown" && this.controller[key]) {
+        if (this.controller["ArrowDown"]) {
             this.y = (this.y + this.height) < canvasHeight ? this.y + this.speed : canvasHeight - this.height;
         }
-        if (key === " " && this.controller[key]) {
+        if (this.controller[" "]) {
             this.baseAttack();
         }
     }
