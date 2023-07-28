@@ -31,7 +31,6 @@ html, body {
 .player-ui {
     width: 100%;
     height: 150px;
-    background-color: red;
     position: absolute;
     display: flex;
     justify-content: space-between;
