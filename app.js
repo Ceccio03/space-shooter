@@ -10,6 +10,7 @@ let animate;
 const player = new Player((canvasWidth/2), (canvasHeight/2), 50, 50);
 let allEnemies = [];
 let enemyCooldown = 120;
+let minibossCoolDown = 1200;
 let playerProjectiles = player.projectiles;
 
 const gameOver = document.getElementById('game-over');
@@ -18,8 +19,7 @@ const gameOverBtn = document.getElementById('game-over-btn');
 const hpBar = document.getElementById('hp-bar');
 const scoreText = document.getElementById('score-text');
 let hpWidth = 100 / player.healthPoints;
-
-
+let state = "Play";
 
 gameOverBtn.addEventListener('click', () => {
     player.healthPoints = 3;
@@ -27,6 +27,8 @@ gameOverBtn.addEventListener('click', () => {
     allEnemies = [];
     gameOver.style.display = "none";
     player.score = 0;
+    player.x = canvasWidth / 2;
+    player.y = canvasHeight / 2;
 });
 
 function animation() {
@@ -37,8 +39,8 @@ function animation() {
     // canvasHeight = window.innerHeight;
     // canvas.width = canvasWidth;
     // canvas.height = canvasHeight;
-
-    if (player.healthPoints > 0) {
+    gameStates();
+    if (state === "Play") {
         if (player) {
             player.draw(ctx);
             player.control(canvasWidth, canvasHeight);
@@ -63,9 +65,8 @@ function animation() {
 
         // hpText.innerText = "Vita: " + player.healthPoints;
         scoreText.innerText = "Score: " + player.score;
-
         hpBar.style.width = hpWidth * player.healthPoints + '%';
-    } else {
+    } else if (state === "GameOver") {
         gameOver.style.display = "flex";
     }
 }
@@ -75,6 +76,20 @@ function enemySpawn() {
     let enemy = new BaseEnemy(randomX, -50, 50, 50);
 
     allEnemies.push(enemy);
+}
+
+function minibossSpawn() {
+    minibossCoolDown--;
+
+    if (minibossCoolDown <= 0) {
+        let xPos = Math.round(Math.random() === 0 ? 0 - 128 : canvasWidth);
+        let miniboss = new Miniboss(xPos, 120, 128, 84);
+
+        miniboss.score = 1000;
+        miniboss.speed = xPos === 0 ? 2 : -2;
+        allEnemies.push(miniboss);
+        minibossCoolDown = 1200;
+    }
 }
 
 function enemyCollision() {
@@ -100,6 +115,25 @@ function enemyCollision() {
                 }
             }
         }
+    }
+}
+
+function gameStates() {
+    switch (state) {
+        case "Play":
+            if (player.healthPoints <= 0) {
+                state = "GameOver";
+            }
+            break;
+
+        case "GameOver":
+            if (player.healthPoints > 0) {
+                state = "Play";
+            }
+            break;
+    
+        default:
+            break;
     }
 }
 animation();
