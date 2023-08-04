@@ -54,7 +54,7 @@ class Player extends GameObject {
 
     baseAttack() {
         if (this.cooldown <= 0) {
-            let proj = new Projectile(this.x + this.width / 2 - 2.5, this.y, 5, 20);
+            let proj = new Projectile(this.x, this.y + this.height / 2 - 2.5, 20, 5);
 
             this.projectiles.push(proj);
             this.cooldown = 15;

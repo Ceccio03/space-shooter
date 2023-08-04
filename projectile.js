@@ -13,12 +13,12 @@ class Projectile extends GameObject {
     }
 
     move() {
-        this.y = this.y - this.speed;
+        this.x = this.x - this.speed;
         this.outOfGame();
     }
 
     outOfGame() {
-        if (this.y + this.height <= 0) {
+        if (this.x + this.width <= 0) {
             this.isAlive = false;
         }
     }

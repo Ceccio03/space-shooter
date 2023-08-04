@@ -1,19 +1,17 @@
-class BaseEnemy extends GameObject {
+class Powerup extends BaseEnemy {
     constructor(x, y, width, height) {
         super(x, y, width, height);
-        this.speed = 3;
-        this.isAlive = true;
+        this.speed = 2;
         this.healthPoints = 1;
-        this.score = 100;
     }
 
     draw(ctx) {
-        ctx.fillStyle = "red";
+        ctx.fillStyle = "lime";
         super.draw(ctx);
         this.death();
     }
 
-    move(canvasWidth) {
+    move() {
         this.x = this.x + this.speed;
         this.outOfGame(canvasWidth);
     }

@@ -10,7 +10,8 @@ let animate;
 const player = new Player((canvasWidth/2), (canvasHeight/2), 50, 50);
 let allEnemies = [];
 let enemyCooldown = 120;
-let minibossCoolDown = 200;
+let powerupCoolDown = 120;
+let minibossCoolDown = 1200;
 let playerProjectiles = player.projectiles;
 
 const gameOver = document.getElementById('game-over');
@@ -57,16 +58,17 @@ function animation() {
     
         enemyCooldown--;
         if (enemyCooldown <= 0) {
-            enemySpawn();
+            enemyFormationSpawn();
             enemyCooldown = 120;
         }
+        powerupSpawn()
         minibossSpawn();
         minibossProjectiles = [];
         allEnemies = allEnemies.filter((e) => e.isAlive);
         for (let i = 0; i < allEnemies.length; i++) {
             const enemy = allEnemies[i];
             enemy.draw(ctx);
-            enemy.move(canvasHeight);
+            enemy.move(canvasWidth);
             if (enemy.projectiles) {
                 minibossProjectiles.push(...enemy.projectiles);
             }
@@ -82,23 +84,44 @@ function animation() {
 }
 
 function enemySpawn() {
-    const randomX = Math.random() * (canvasWidth - 50);
-    let enemy = new BaseEnemy(randomX, -50, 50, 50);
+    const randomY = Math.random() * (canvasHeight - 50);
+    let enemy = new BaseEnemy(-50, randomY, 50, 50);
 
     allEnemies.push(enemy);
+}
+
+function enemyFormationSpawn() {
+    const randomY = Math.random() * (canvasHeight - 50);
+    let enemy = new BaseEnemy(-50, randomY, 50, 50);
+    let enemy2 = new BaseEnemy(-200, randomY + 300, 50, 50);
+    let enemy3 = new BaseEnemy(-200, randomY - 300, 50, 50);
+
+    allEnemies.push(enemy, enemy2, enemy3);
+}
+
+function powerupSpawn() {
+    powerupCoolDown--;
+
+    if (powerupCoolDown <= 0) {
+        const randomY = Math.random() * (canvasHeight - 50);
+        let powerup = new Powerup(-50, randomY, 50, 50);
+        
+        allEnemies.push(powerup);
+        powerupCoolDown = 120;
+    }
 }
 
 function minibossSpawn() {
     minibossCoolDown--;
 
     if (minibossCoolDown <= 0) {
-        let xPos = Math.round(Math.random() === 0 ? 0 - 128 : canvasWidth);
-        let miniboss = new Miniboss(xPos, 120, 128, 84);
+        let yPos = Math.round(Math.random() === 0 ? 0 - 128 : canvasHeight);
+        let miniboss = new Miniboss(120, yPos, 84, 128);
 
         miniboss.score = 1000;
-        miniboss.speed = xPos < 0.5 ? 2 : -2;
+        miniboss.speed = yPos < 0.5 ? 2 : -2;
         allEnemies.push(miniboss);
-        minibossCoolDown = 200;
+        minibossCoolDown = 1200;
     }
 }
 
