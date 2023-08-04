@@ -1,3 +1,5 @@
+const e = require("express");
+
 let canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
 
@@ -53,7 +55,7 @@ function animation() {
             enemyCooldown = 120;
         }
         minibossSpawn();
-
+        minibossProjectiles = [];
         allEnemies = allEnemies.filter((e) => e.isAlive);
         for (let i = 0; i < allEnemies.length; i++) {
             const enemy = allEnemies[i];
@@ -101,8 +103,8 @@ function enemyCollision() {
     for (let i = 0; i < playerAssets.length; i++) {
         const pA = playerAssets[i];
         
-        for (let j = 0; j < allEnemies.length; j++) {
-            const enemy = allEnemies[j];
+        for (let j = 0; j < enemyAssets.length; j++) {
+            const enemy = enemyAssets[j];
             
             if (enemy.x < pA.x + pA.width &&
                 enemy.x + enemy.width > pA.x &&
