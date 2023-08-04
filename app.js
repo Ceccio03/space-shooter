@@ -17,10 +17,16 @@ const gameOver = document.getElementById('game-over');
 const gameOverBtn = document.getElementById('game-over-btn');
 // const hpText = document.getElementById('hp-text');
 const hpBar = document.getElementById('hp-bar');
-const scoreText = document.getElementById('score-text');
 let hpWidth = 100 / player.healthPoints;
-let state = "Play";
+
+const scoreText = document.getElementById('score-text');
 minibossProjectiles = [];
+
+let state = "Play";
+
+let backgroud = new Image();
+backgroud.src = "./assets/space.png";
+let background_y = 0;
 
 gameOverBtn.addEventListener('click', () => {
     player.healthPoints = 3;
@@ -42,6 +48,7 @@ function animation() {
     // canvas.height = canvasHeight;
     gameStates();
     if (state === "Play") {
+        loopBackground();
         if (player) {
             player.draw(ctx);
             player.control(canvasWidth, canvasHeight);
@@ -114,7 +121,7 @@ function enemyCollision() {
                 pA.healthPoints--;
                 enemy.death();
 
-                if (!enemy.isAlive) {
+                if (!enemy.isAlive && enemy.score && !pA.isPlayer) {
                     player.score += enemy.score;
                 }
             }
@@ -138,6 +145,16 @@ function gameStates() {
     
         default:
             break;
+    }
+}
+
+function loopBackground() {
+    ctx.drawImage(backgroud, 0, background_y, canvasWidth, canvasHeight);
+    ctx.drawImage(backgroud, 0, background_y - canvasHeight, canvasWidth, canvasHeight);
+    background_y++;
+
+    if (background_y >= canvasHeight) {
+        background_y = 0;
     }
 }
 animation();

@@ -5,11 +5,13 @@ class Player extends GameObject {
         this.controller = {};
         this.projectiles = [];
         this.cooldown = 15;
-        this.healthPoints = 5;
+        this.healthPoints = 3;
         this.score = 0;
+        this.isPlayer = true;
     }
 
     draw(ctx) {
+        ctx.fillStyle = "green";
         super.draw(ctx);
 
         this.cooldown--;
