@@ -5,10 +5,10 @@ class BaseEnemy extends GameObject {
         this.isAlive = true;
         this.healthPoints = 1;
         this.score = 100;
+        this.color = 'red';
     }
 
     draw(ctx) {
-        ctx.fillStyle = "red";
         super.draw(ctx);
         this.death();
     }

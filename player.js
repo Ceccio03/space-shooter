@@ -8,10 +8,11 @@ class Player extends GameObject {
         this.healthPoints = 3;
         this.score = 0;
         this.isPlayer = true;
+        this.color = 'green';
+        this.resetCoolDown = 15;
     }
 
     draw(ctx) {
-        ctx.fillStyle = "green";
         super.draw(ctx);
 
         this.cooldown--;
@@ -53,11 +54,13 @@ class Player extends GameObject {
     }
 
     baseAttack() {
+        console.log(this.cooldown);
+        console.log(this.resetCoolDown);
         if (this.cooldown <= 0) {
             let proj = new Projectile(this.x, this.y + this.height / 2 - 2.5, 20, 5);
 
             this.projectiles.push(proj);
-            this.cooldown = 15;
+            this.cooldown = this.resetCoolDown;
         }
     }
 

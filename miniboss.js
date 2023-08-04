@@ -5,10 +5,10 @@ class Miniboss extends BaseEnemy {
         this.projectiles = [];
         this.attackCD = 30;
         this.healthPoints = 12;
+        this.color = 'red';
     }
 
     draw(ctx) {
-        ctx.fillStyle = "red";
         super.draw(ctx);
 
         this.attackCD--;

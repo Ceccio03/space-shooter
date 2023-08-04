@@ -3,10 +3,11 @@ class Powerup extends BaseEnemy {
         super(x, y, width, height);
         this.speed = 2;
         this.healthPoints = 1;
+        this.color = 'green';
+        this.isPowerup = true;
     }
 
     draw(ctx) {
-        ctx.fillStyle = "lime";
         super.draw(ctx);
         this.death();
     }
@@ -25,6 +26,7 @@ class Powerup extends BaseEnemy {
     death() {
         if (this.healthPoints <= 0) {
             this.isAlive = false;
+            player.cooldown = 5;
         }
     }
 }

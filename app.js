@@ -25,8 +25,8 @@ minibossProjectiles = [];
 
 let state = "Play";
 
-let backgroud = new Image();
-backgroud.src = "./assets/space.png";
+let background = new Image();
+background.src = "./assets/space.png";
 let background_y = 0;
 
 gameOverBtn.addEventListener('click', () => {
@@ -61,7 +61,7 @@ function animation() {
             enemyFormationSpawn();
             enemyCooldown = 120;
         }
-        powerupSpawn()
+        powerupSpawn();
         minibossSpawn();
         minibossProjectiles = [];
         allEnemies = allEnemies.filter((e) => e.isAlive);
@@ -105,7 +105,7 @@ function powerupSpawn() {
     if (powerupCoolDown <= 0) {
         const randomY = Math.random() * (canvasHeight - 50);
         let powerup = new Powerup(-50, randomY, 50, 50);
-        
+
         allEnemies.push(powerup);
         powerupCoolDown = 120;
     }
@@ -147,6 +147,11 @@ function enemyCollision() {
                 if (!enemy.isAlive && enemy.score && !pA.isPlayer) {
                     player.score += enemy.score;
                 }
+
+                if (!enemy.isAlive && enemy.isPowerup) {
+                    player.resetCoolDown = 5;
+                    setTimeout(300);
+                }
             }
         }
     }
@@ -165,15 +170,15 @@ function gameStates() {
                 state = "Play";
             }
             break;
-    
+            
         default:
             break;
     }
 }
 
 function loopBackground() {
-    ctx.drawImage(backgroud, 0, background_y, canvasWidth, canvasHeight);
-    ctx.drawImage(backgroud, 0, background_y - canvasHeight, canvasWidth, canvasHeight);
+    ctx.drawImage(background, 0, background_y, canvasWidth, canvasHeight);
+    ctx.drawImage(background, 0, background_y - canvasHeight, canvasWidth, canvasHeight);
     background_y++;
 
     if (background_y >= canvasHeight) {

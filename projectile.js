@@ -4,10 +4,10 @@ class Projectile extends GameObject {
         this.speed = 15;
         this.isAlive = true;
         this.healthPoints = 1;
+        this.color = 'white';
     }
 
     draw(ctx) {
-        ctx.fillStyle = "green";
         super.draw(ctx);
         this.death();
     }
