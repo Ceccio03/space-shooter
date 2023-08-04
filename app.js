@@ -10,7 +10,8 @@ let animate;
 const player = new Player((canvasWidth/2), (canvasHeight/2), 50, 50);
 let allEnemies = [];
 let enemyCooldown = 120;
-let minibossCoolDown = 1200;
+let minibossCoolDown = 200;
+let playerProjectiles = player.projectiles;
 
 const gameOver = document.getElementById('game-over');
 const gameOverBtn = document.getElementById('game-over-btn');
