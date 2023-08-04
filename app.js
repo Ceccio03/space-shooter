@@ -1,5 +1,3 @@
-const e = require("express");
-
 let canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
 
@@ -62,7 +60,7 @@ function animation() {
             enemy.draw(ctx);
             enemy.move(canvasHeight);
             if (enemy.projectiles) {
-                minibossProjectiles.push(enemy.projectiles);
+                minibossProjectiles.push(...enemy.projectiles);
             }
         }
         enemyCollision();
