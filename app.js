@@ -19,7 +19,7 @@ const hpBar = document.getElementById('hp-bar');
 const scoreText = document.getElementById('score-text');
 let hpWidth = 100 / player.healthPoints;
 let state = "Play";
-let minibossProjectiles = [];
+minibossProjectiles = [];
 
 gameOverBtn.addEventListener('click', () => {
     player.healthPoints = 3;
@@ -90,7 +90,7 @@ function minibossSpawn() {
         miniboss.score = 1000;
         miniboss.speed = xPos < 0.5 ? 2 : -2;
         allEnemies.push(miniboss);
-        minibossCoolDown = 1200;
+        minibossCoolDown = 200;
     }
 }
 

@@ -13,6 +13,7 @@ class Projectile extends GameObject {
 
     move() {
         this.y = this.y - this.speed;
+        this.outOfGame();
     }
 
     outOfGame() {
